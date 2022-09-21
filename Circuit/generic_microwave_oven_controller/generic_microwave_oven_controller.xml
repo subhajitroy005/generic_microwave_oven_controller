@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>D:\Subhajit_Roy_Engineering\generic_microwave_oven_controller\Circuit\generic_microwave_oven_controller\generic_microwave_oven_controller.kicad_sch</source>
+    <date>9/21/2022 3:19:08 PM</date>
+    <tool>Eeschema (6.0.7)</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Controller Board</title>
+        <company/>
+        <rev>1</rev>
+        <date>2022-09-20</date>
+        <source>generic_microwave_oven_controller.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="2" name="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/">
+      <title_block>
+        <title>Soft Starter</title>
+        <company/>
+        <rev/>
+        <date>2022-09-20</date>
+        <source>Soft_Starter.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>0.05u</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>f9eda9fc-d89e-4a48-873b-c62ca7c94a39</tstamps>
+    </comp>
+    <comp ref="C2">
+      <value>0.01u</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>89c6bc44-1672-44ac-8fb6-7c47f8868c01</tstamps>
+    </comp>
+    <comp ref="D1">
+      <value>1N4007</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88503/1n4001.pdf</datasheet>
+      <libsource lib="Diode" part="1N4007" description="1000V 1A General Purpose Rectifier Diode, DO-41"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>6b0fbe6d-3574-46d3-8622-b5abac71a48a</tstamps>
+    </comp>
+    <comp ref="D2">
+      <value>1N4007</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88503/1n4001.pdf</datasheet>
+      <libsource lib="Diode" part="1N4007" description="1000V 1A General Purpose Rectifier Diode, DO-41"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>18dc67c7-bbdd-4859-aceb-78cb69d39ebe</tstamps>
+    </comp>
+    <comp ref="D3">
+      <value>1N4007</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88503/1n4001.pdf</datasheet>
+      <libsource lib="Diode" part="1N4007" description="1000V 1A General Purpose Rectifier Diode, DO-41"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>2e5fc9f4-a7c5-4c57-8c1e-9877f8e5605b</tstamps>
+    </comp>
+    <comp ref="D4">
+      <value>1N4007</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88503/1n4001.pdf</datasheet>
+      <libsource lib="Diode" part="1N4007" description="1000V 1A General Purpose Rectifier Diode, DO-41"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>b4d66889-4140-436b-b799-d00f4a8e2bb4</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>Screw_Terminal_01x02</value>
+      <libsource lib="Connector" part="Screw_Terminal_01x02" description="Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>a550e9d5-efef-47fb-9034-f6d03cf1394c</tstamps>
+    </comp>
+    <comp ref="J2">
+      <value>AC_IN</value>
+      <libsource lib="Connector" part="Screw_Terminal_01x02" description="Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>94baa3d4-e9ed-4f5b-89e0-13708f62d48e</tstamps>
+    </comp>
+    <comp ref="J3">
+      <value>AC_OUT</value>
+      <libsource lib="Connector" part="Screw_Terminal_01x02" description="Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>00ec3f74-bd20-49a1-8d5d-572028e56ed7</tstamps>
+    </comp>
+    <comp ref="Q1">
+      <value>BT139-600</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>https://www.rapidonline.com/pdf/47-3240.pdf</datasheet>
+      <libsource lib="Triac_Thyristor" part="BT139-600" description="16A RMS, 600V Off-State Voltage, 4Q Triac, TO-220"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>8f7a61c8-498c-4d72-9c70-3d3e878f4675</tstamps>
+    </comp>
+    <comp ref="R1">
+      <value>1k_W25</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>a80c8cd1-83a7-43de-bcd3-25b68569de46</tstamps>
+    </comp>
+    <comp ref="R2">
+      <value>150_W25</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>0727bf11-dac4-44a0-a2dd-ba3cf25464e9</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>1k_W25</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>7f892460-4dd0-4a9b-83f2-4813f9d243f5</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>330_W25</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>ed43e1a1-54fb-4165-96d8-1773e71f1de4</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>360_1W</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Field4" value=""/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>a56da2d9-03cf-4401-b2d2-d494730013e6</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>470_1W</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Field4" value=""/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>550dd850-9819-4e11-b3a7-39b723471fbc</tstamps>
+    </comp>
+    <comp ref="R7">
+      <value>39_1W</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Field4" value=""/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>c4239e75-db07-4949-83aa-b2b272508e26</tstamps>
+    </comp>
+    <comp ref="R8">
+      <value>10k_W25</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>ab9bbe87-e414-4192-9f2e-0e69ef207178</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>PC817</value>
+      <footprint>Package_DIP:DIP-4_W7.62mm</footprint>
+      <datasheet>http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</datasheet>
+      <libsource lib="Isolator" part="PC817" description="DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>f05afea3-af95-4010-8817-faa1f9c3ee81</tstamps>
+    </comp>
+    <comp ref="U2">
+      <value>MOC3021M</value>
+      <datasheet>https://www.onsemi.com/pub/Collateral/MOC3023M-D.PDF</datasheet>
+      <libsource lib="Relay_SolidState" part="MOC3021M" description="Random Phase Opto-Triac, Vdrm 400V, Ift 15mA, DIP6"/>
+      <property name="Sheetname" value="Soft_Starter"/>
+      <property name="Sheetfile" value="Soft_Starter.kicad_sch"/>
+      <sheetpath names="/Soft_Starter/" tstamps="/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/"/>
+      <tstamps>31f420b2-c28b-4a04-afde-5bd67ad5a2cf</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Screw_Terminal_01x02">
+      <description>Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TerminalBlock*:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Screw_Terminal_01x02</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Diode" part="1N4007">
+      <description>1000V 1A General Purpose Rectifier Diode, DO-41</description>
+      <docs>http://www.vishay.com/docs/88503/1n4001.pdf</docs>
+      <footprints>
+        <fp>D*DO?41*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">1N4007</field>
+        <field name="Footprint">Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</field>
+        <field name="Datasheet">http://www.vishay.com/docs/88503/1n4001.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Isolator" part="PC817">
+      <description>DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4</description>
+      <docs>http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</docs>
+      <footprints>
+        <fp>DIP*W7.62mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">PC817</field>
+        <field name="Footprint">Package_DIP:DIP-4_W7.62mm</field>
+        <field name="Datasheet">http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+        <pin num="3" name="" type="passive"/>
+        <pin num="4" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Relay_SolidState" part="MOC3021M">
+      <description>Random Phase Opto-Triac, Vdrm 400V, Ift 15mA, DIP6</description>
+      <docs>https://www.onsemi.com/pub/Collateral/MOC3023M-D.PDF</docs>
+      <footprints>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>SMDIP*W9.53mm*</fp>
+        <fp>DIP*W10.16mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MOC3021M</field>
+        <field name="Datasheet">https://www.onsemi.com/pub/Collateral/MOC3023M-D.PDF</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+        <pin num="3" name="NC" type="no_connect"/>
+        <pin num="4" name="" type="passive"/>
+        <pin num="5" name="NC" type="no_connect"/>
+        <pin num="6" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Triac_Thyristor" part="BT139-600">
+      <description>16A RMS, 600V Off-State Voltage, 4Q Triac, TO-220</description>
+      <docs>https://www.rapidonline.com/pdf/47-3240.pdf</docs>
+      <footprints>
+        <fp>TO?220*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">BT139-600</field>
+        <field name="Footprint">Package_TO_SOT_THT:TO-220-3_Vertical</field>
+        <field name="Datasheet">https://www.rapidonline.com/pdf/47-3240.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A1" type="passive"/>
+        <pin num="2" name="A2" type="passive"/>
+        <pin num="3" name="G" type="input"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Connector.kicad_sym</uri>
+    </library>
+    <library logical="Device">
+      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Device.kicad_sym</uri>
+    </library>
+    <library logical="Diode">
+      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Diode.kicad_sym</uri>
+    </library>
+    <library logical="Isolator">
+      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Isolator.kicad_sym</uri>
+    </library>
+    <library logical="Relay_SolidState">
+      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Relay_SolidState.kicad_sym</uri>
+    </library>
+    <library logical="Triac_Thyristor">
+      <uri>C:\Program Files\KiCad\6.0\share\kicad\symbols\/Triac_Thyristor.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/Soft_Starter/5V_LOGIC">
+      <node ref="R3" pin="1" pintype="passive"/>
+    </net>
+    <net code="2" name="/Soft_Starter/MCU_TRIAC_CONTROL">
+      <node ref="R4" pin="1" pintype="passive"/>
+    </net>
+    <net code="3" name="/Soft_Starter/MCU_ZCD_INPUT">
+      <node ref="R3" pin="2" pintype="passive"/>
+      <node ref="U1" pin="4" pintype="passive"/>
+    </net>
+    <net code="4" name="/Soft_Starter/ZCD_AC_IN_M">
+      <node ref="D2" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D4" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="J1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="5" name="/Soft_Starter/ZCD_AC_IN_P">
+      <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D3" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="J1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+    </net>
+    <net code="6" name="/Soft_Starter/ZCD_DC_OUT_M">
+      <node ref="D3" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D4" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="U1" pin="2" pintype="passive"/>
+    </net>
+    <net code="7" name="/Soft_Starter/ZCD_DC_OUT_P">
+      <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="D2" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="R1" pin="1" pintype="passive"/>
+    </net>
+    <net code="8" name="GND">
+      <node ref="R8" pin="2" pintype="passive"/>
+      <node ref="U1" pin="3" pintype="passive"/>
+      <node ref="U2" pin="2" pintype="passive"/>
+    </net>
+    <net code="9" name="Net-(C1-Pad1)">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="R6" pin="1" pintype="passive"/>
+    </net>
+    <net code="10" name="Net-(C1-Pad2)">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="C2" pin="2" pintype="passive"/>
+      <node ref="J3" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="Q1" pin="1" pinfunction="A1" pintype="passive"/>
+    </net>
+    <net code="11" name="Net-(C2-Pad1)">
+      <node ref="C2" pin="1" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+    </net>
+    <net code="12" name="Net-(J2-Pad1)">
+      <node ref="J2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="Q1" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="R6" pin="2" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+    </net>
+    <net code="13" name="Net-(J2-Pad2)">
+      <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="J3" pin="1" pinfunction="Pin_1" pintype="passive"/>
+    </net>
+    <net code="14" name="Net-(Q1-Pad3)">
+      <node ref="Q1" pin="3" pinfunction="G" pintype="input"/>
+      <node ref="U2" pin="4" pintype="passive"/>
+    </net>
+    <net code="15" name="Net-(R1-Pad2)">
+      <node ref="R1" pin="2" pintype="passive"/>
+      <node ref="R2" pin="1" pintype="passive"/>
+      <node ref="U1" pin="1" pintype="passive"/>
+    </net>
+    <net code="16" name="Net-(R4-Pad2)">
+      <node ref="R4" pin="2" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="U2" pin="1" pintype="passive"/>
+    </net>
+    <net code="17" name="Net-(R5-Pad1)">
+      <node ref="R5" pin="1" pintype="passive"/>
+      <node ref="U2" pin="6" pintype="passive"/>
+    </net>
+    <net code="18" name="unconnected-(U2-Pad3)">
+      <node ref="U2" pin="3" pinfunction="NC" pintype="no_connect"/>
+    </net>
+    <net code="19" name="unconnected-(U2-Pad5)">
+      <node ref="U2" pin="5" pinfunction="NC" pintype="no_connect"/>
+    </net>
+  </nets>
+</export>
