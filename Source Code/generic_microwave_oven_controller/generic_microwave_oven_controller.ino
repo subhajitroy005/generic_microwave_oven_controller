@@ -31,7 +31,6 @@
 
 
 
-
 /* Operation constrains */
 #define MAX_MODE  2
 enum _microwave_modes{
@@ -41,12 +40,14 @@ enum _microwave_modes{
 
 enum enum_env_condition{
   CONDITION_DOOR_OPEN,
-  CONDITION_DOOR_CLOSED
+  CONDITION_DOOR_CLOSED,
 };
 
 enum notification_update_code{
   NOTIFY_DOOR_STATUS = 0 ,
   NOTIFY_RUNNING_STATUS,
+  NOTIFY_RUNNING,
+  NOTIFY_OP_DONE,
   NOTIFY_NULL
 };
 
@@ -57,7 +58,10 @@ LiquidCrystal_I2C lcd(0x27,16,2);     // set the LCD address to 0x27 for a 16 ch
 typedef struct _timer_information
         {
             uint32_t       user_timer_setup;  // Running time set by user
-            
+            uint64_t       operation_start_timestamp;
+            uint32_t       running_timer_status;
+            uint32_t       ui_refresh_ts; // for UI refresh purpose    
+            uint32_t       minute_display_scaling_factor_hold;
         }timer_info;
 
 typedef struct _ui_information
@@ -83,6 +87,8 @@ enum signals_list{
   SIGNAL_TIMER_DOWN,
   SIGNAL_MODE_SELECT,
   SIGNAL_DOOR_OPEN,
+  SIGNAL_START_OP,
+  SIGNAL_STOP_OP,
   SIGNAL_NULL 
 };
 

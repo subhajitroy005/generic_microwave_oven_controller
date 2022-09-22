@@ -164,15 +164,17 @@ void cb_state_machine_signal_gen(struct application_info* app){
 
         //-------------------------------------------------
         case INDEX_SCAN_PIN_START:
+          app->cap_signal = SIGNAL_START_OP; // Start signal captured
         break;
 
         //-------------------------------------------------
         case INDEX_SCAN_PIN_STOP:
+          app->cap_signal = SIGNAL_STOP_OP; // Stop signal captured
         break;
 
         //-------------------------------------------------
         case INDEX_SCAN_PIN_DOOR_OPEN:
-          app->cap_signal = SIGNAL_DOOR_OPEN; // Mode select signal captured
+          app->cap_signal = SIGNAL_DOOR_OPEN; // Door open signal captured for both open and close state
         break;
         
        }
@@ -249,12 +251,32 @@ void cb_mode_select_action(struct application_info* app){
 ***********************************************************/
 
 void cb_door_status_action(struct application_info* app){
-  if(scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].present_state == HIGH) // door opened
+  if(scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].present_state == HIGH){ // door opened and notify for door opened
     app->env_condition = CONDITION_DOOR_OPEN;
-   else
+    app->ui.notification_flag = NOTIFY_DOOR_STATUS;
+  }
+   else { // for close condition notify nothing
     app->env_condition = CONDITION_DOOR_CLOSED;
+    app->ui.notification_flag = NOTIFY_NULL;
+   }  
+}
 
-   app->ui.notification_flag = NOTIFY_DOOR_STATUS; // update UI notification for door status
+/**********************************************************
+ * state name:  cb_ui_update
+ * parent state call: state_back_op_call
+***********************************************************/
+
+uint8_t cb_check_start_condition(struct application_info* app){
+  // for door open condition notify user other cases just common update
+  if(app->env_condition == CONDITION_DOOR_CLOSED){
+    return true;
+  } else
+    app->ui.notification_flag = NOTIFY_DOOR_STATUS; // update for door status
+
+  // other conditoins here 
+
+  // fail safe condition return false always
+  return false;
 }
 
 /**********************************************************
@@ -266,13 +288,19 @@ void cb_ui_update(struct application_info* app){
   lcd.clear(); // clear all the contents
 
   /* Timer part update */
+  uint32_t temp_timer_select;
+  if(app->curr_state == STATE_RUNNING)
+    temp_timer_select = app->timer.running_timer_status; //update from running timer status
+  else
+    temp_timer_select = app->timer.user_timer_setup; // update from user timer status
+  
   lcd.setCursor(0,0);
-  if(app->timer.user_timer_setup <= 60){    // Update in seconds
-    lcd.print(app->timer.user_timer_setup); 
+  if(temp_timer_select <= 60){    // Update in seconds
+    lcd.print(temp_timer_select); 
     lcd.setCursor(2,0);                     // As the above value <60 to unit will be after 2 digit space
     lcd.print("s");              
   } else {                                  // update in minutes
-    uint32_t temp_timer_val = (app->timer.user_timer_setup/60);
+    uint32_t temp_timer_val = (temp_timer_select/60);
     lcd.print(temp_timer_val); // Update the time value in dispaly (floor op)
     lcd.setCursor(util_calculate_digit(temp_timer_val),0); // calculate the number of digit and set the cursor there as lne start form 0
     lcd.print("m");
@@ -293,17 +321,20 @@ void cb_ui_update(struct application_info* app){
  /* Notification area update */
   switch(app->ui.notification_flag){
     case NOTIFY_DOOR_STATUS:
-      switch(app->env_condition){
-        case CONDITION_DOOR_OPEN:
            lcd.setCursor(0,1);
            lcd.print("Close the door");
-           // next update clear it 
-           app->ui.notification_flag = NOTIFY_NULL;
-        break;
-      }
     break;
 
     case NOTIFY_RUNNING_STATUS:
+      // just update running state condition
+      lcd.setCursor(0,1);
+      lcd.print("Heating...");
+    break;
+
+    case NOTIFY_OP_DONE:
+      lcd.setCursor(0,1);
+      lcd.print("Food is ready");
+      app->ui.notification_flag = NOTIFY_NULL;
     break;
   }
   
@@ -314,8 +345,8 @@ void cb_ui_update(struct application_info* app){
  * parent state call: state_back_op_call
 ***********************************************************/
 
-void cb_transition_entry(struct application_info* app){
-  
+void cb_transition_create_signal(struct application_info* app, uint8_t set_signal){
+  app->cap_signal = set_signal;
 }
 
 /**********************************************************
