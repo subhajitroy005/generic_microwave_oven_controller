@@ -16,7 +16,7 @@
   #include <LiquidCrystal_I2C.h>
 #endif 
 
-
+#define BOTH_STATE           2
 #define CONDITION_REGISTERED true
 #define CONDITION_SERVED     false
 
@@ -29,30 +29,69 @@
 
 
 
-/* GLOBAL Objects and variables*/
 
+
+
+/* Operation constrains */
+#define MAX_MODE  2
+enum _microwave_modes{
+  MODE_MICROWAVE,
+  MODE_GRILL
+};
+
+
+
+
+/* GLOBAL Objects and variables*/
 LiquidCrystal_I2C lcd(0x27,16,2);     // set the LCD address to 0x27 for a 16 chars and 2 line display
 
 
-// State related structures and enums
-enum state_tran_list{
-  STATE_INIT,
-  STATE_IO_POLLING,
-  STATE_SIGNAL_ACTION,
-  STATE_BACKGROUND_OP
-};
-
-struct _state_info
+typedef struct _timer_information
         {
-            uint8_t        state_tran_ind;
+            uint32_t       user_timer_setup;  // Running time set by user
             
-        }sys_state;
+        }timer_info;
 
-enum _microwave_modes{
-  MODE_MICROWAVE,
-  MODE_GRILL,
-  MODE_COMBINATION
+
+
+// State related structures and enums -------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+
+
+typedef enum state_list{
+  //STATE_INIT  // Not listed because this is static init and implemented in setup function 
+  STATE_SELF_TEST = 0 , 
+  STATE_IDLE,
+  STATE_RUNNING
 };
+enum signals_list{
+  SIGNAL_SELF_TEST_OK = 0,
+  SIGNAL_SELF_TEST_FAIL,
+  SIGNAL_TIMER_UP,
+  SIGNAL_TIMER_DOWN,
+  SIGNAL_MODE_SELECT,
+  SIGNAL_NULL 
+};
+
+struct application_info
+        {
+            uint8_t        next_state;  // Hold the state for next state transition
+            uint8_t        curr_state;  // Hold the state from where the next state is transiting
+            uint8_t        cap_signal;  // captured signal
+
+            uint8_t        op_mode;     // Operation modes select by user
+            // ---  Timer related info
+            timer_info     timer;       // timer     
+        }application;
+
+
+
+
+
+
+
+
+
 
 enum _syatem_status{
   STATUS_DOOR_OPEN,
@@ -132,17 +171,12 @@ struct _output_pins
 //********************************************//
 //********************************************//
 
-uint8_t       global_ui_update_request;
 
-unsigned char mode_selector;          // Mode variable for operation
 
-long          timer_operation;        // Store the time for operation
+
 unsigned long time_tracker;           // Tracking the time for operation
 unsigned long mark_time;              // Mark the time from where the operation should start
 unsigned long lcd_update_time;        // store the last time for LCD update
 unsigned long lcd_time_counter;
 unsigned char machine_status;         // status of the machine
 unsigned char operation_flag;         // Start/Stop condition of the operation
-
-/* function definitions */
-void state_init_var_reset();
