@@ -39,8 +39,16 @@ enum _microwave_modes{
   MODE_GRILL
 };
 
+enum enum_env_condition{
+  CONDITION_DOOR_OPEN,
+  CONDITION_DOOR_CLOSED
+};
 
-
+enum notification_update_code{
+  NOTIFY_DOOR_STATUS = 0 ,
+  NOTIFY_RUNNING_STATUS,
+  NOTIFY_NULL
+};
 
 /* GLOBAL Objects and variables*/
 LiquidCrystal_I2C lcd(0x27,16,2);     // set the LCD address to 0x27 for a 16 chars and 2 line display
@@ -52,7 +60,11 @@ typedef struct _timer_information
             
         }timer_info;
 
-
+typedef struct _ui_information
+        {
+            uint8_t       notification_flag;  // Running time set by user
+            
+        }ui_info;
 
 // State related structures and enums -------------------------------------------------------
 //-------------------------------------------------------------------------------------------
@@ -70,6 +82,7 @@ enum signals_list{
   SIGNAL_TIMER_UP,
   SIGNAL_TIMER_DOWN,
   SIGNAL_MODE_SELECT,
+  SIGNAL_DOOR_OPEN,
   SIGNAL_NULL 
 };
 
@@ -79,31 +92,18 @@ struct application_info
             uint8_t        curr_state;  // Hold the state from where the next state is transiting
             uint8_t        cap_signal;  // captured signal
 
+            
             uint8_t        op_mode;     // Operation modes select by user
+
+            uint8_t        env_condition;
+
+            
             // ---  Timer related info
-            timer_info     timer;       // timer     
+            timer_info     timer;       // timer
+
+            // --- UI Info
+            ui_info        ui;
         }application;
-
-
-
-
-
-
-
-
-
-
-enum _syatem_status{
-  STATUS_DOOR_OPEN,
-  STATUS_DOOR_CLOSE,
-  STATUS_RUNNING,
-  STATUS_STOP,
-  STATUS_OK,
-  STATUS_ERR
-};
-
-
-
 
 
 
@@ -178,5 +178,4 @@ unsigned long time_tracker;           // Tracking the time for operation
 unsigned long mark_time;              // Mark the time from where the operation should start
 unsigned long lcd_update_time;        // store the last time for LCD update
 unsigned long lcd_time_counter;
-unsigned char machine_status;         // status of the machine
 unsigned char operation_flag;         // Start/Stop condition of the operation

@@ -48,6 +48,12 @@ void loop() {
           cb_ui_update(&application); // update the UI
           cb_transition_destroy_signal(&application); // destroy the signal so that same state it shuld not enter this signal condition
         break;
+
+        case SIGNAL_DOOR_OPEN:
+           cb_door_status_action(&application);
+           cb_ui_update(&application); // update the UI
+           cb_transition_destroy_signal(&application); // destroy the signal so that same state it shuld not enter this signal condition
+        break;
       }
     break;
 

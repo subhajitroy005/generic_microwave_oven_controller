@@ -7,8 +7,8 @@ void cb_variable_reset(struct application_info* app){
   // Microwave Grill Combination mode variable reset to MIRCROWAVE
   app->op_mode         = MODE_MICROWAVE;
   app->timer.user_timer_setup       = MIN_TIMER_OPERATION_IN_S;               // Reset value of the timer operation
-  machine_status        = STATUS_OK;        // Default Status at reset
-
+  app->env_condition = CONDITION_DOOR_CLOSED;
+  app->ui.notification_flag = NOTIFY_NULL;  // At beginig no update
   // Timer operation related variable
   lcd_time_counter      = 0; // Starting counter zero
   time_tracker          = 0;
@@ -42,10 +42,10 @@ void cb_io_driver_int(struct application_info* app){
         
 
         scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].pin            = PIN_DOOR_OPEN;
-        scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].pressed_state  = HIGH;
+        scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].pressed_state  = BOTH_STATE;
         scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].debounce_time  = 30; // Debounce time in 30mS
-        scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].previous_state = (!scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].pressed_state);
-        pinMode(scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].pin , INPUT);
+        scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].previous_state = LOW; // as expecting DOOR is closed by default
+        pinMode(scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].pin , INPUT_PULLUP);
          
 
         scan_pin[INDEX_SCAN_PIN_TIMER_DOWN].pin             = PIN_TIMER_DOWN;
@@ -119,9 +119,12 @@ void cb_signal_polling(struct application_info* app){
     if ((millis() - scan_pin[i].last_debounce_time) >= scan_pin[i].debounce_time){  // > because the micros are not precise eough
       if (scan_pin[i].pin_state != scan_pin[i].present_state){
           scan_pin[i].present_state = scan_pin[i].pin_state;
-          if(scan_pin[i].present_state == scan_pin[i].pressed_state ){ // A button press registered
+          if( (scan_pin[i].present_state == scan_pin[i].pressed_state) && (scan_pin[i].pressed_state != BOTH_STATE) ){ // A button press registered but not for both edge detection logic
             scan_pin[i].is_pressed = CONDITION_REGISTERED;
-           }
+          }
+          if(scan_pin[i].pressed_state == BOTH_STATE){
+            scan_pin[i].is_pressed = CONDITION_REGISTERED;
+          }
       }
     }
     scan_pin[i].previous_state = scan_pin[i].pin_state;
@@ -169,6 +172,7 @@ void cb_state_machine_signal_gen(struct application_info* app){
 
         //-------------------------------------------------
         case INDEX_SCAN_PIN_DOOR_OPEN:
+          app->cap_signal = SIGNAL_DOOR_OPEN; // Mode select signal captured
         break;
         
        }
@@ -244,6 +248,20 @@ void cb_mode_select_action(struct application_info* app){
  * parent state call: state_back_op_call
 ***********************************************************/
 
+void cb_door_status_action(struct application_info* app){
+  if(scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].present_state == HIGH) // door opened
+    app->env_condition = CONDITION_DOOR_OPEN;
+   else
+    app->env_condition = CONDITION_DOOR_CLOSED;
+
+   app->ui.notification_flag = NOTIFY_DOOR_STATUS; // update UI notification for door status
+}
+
+/**********************************************************
+ * state name:  cb_ui_update
+ * parent state call: state_back_op_call
+***********************************************************/
+
 void cb_ui_update(struct application_info* app){
   lcd.clear(); // clear all the contents
 
@@ -271,6 +289,24 @@ void cb_ui_update(struct application_info* app){
       lcd.print("Grill");
     break;
   }
+
+ /* Notification area update */
+  switch(app->ui.notification_flag){
+    case NOTIFY_DOOR_STATUS:
+      switch(app->env_condition){
+        case CONDITION_DOOR_OPEN:
+           lcd.setCursor(0,1);
+           lcd.print("Close the door");
+           // next update clear it 
+           app->ui.notification_flag = NOTIFY_NULL;
+        break;
+      }
+    break;
+
+    case NOTIFY_RUNNING_STATUS:
+    break;
+  }
+  
 }
 
 /**********************************************************
