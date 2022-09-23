@@ -46,7 +46,6 @@ enum enum_env_condition{
 enum notification_update_code{
   NOTIFY_DOOR_STATUS = 0 ,
   NOTIFY_RUNNING_STATUS,
-  NOTIFY_RUNNING,
   NOTIFY_OP_DONE,
   NOTIFY_NULL
 };

@@ -228,7 +228,7 @@ void cb_timer_down_action(struct application_info* app){
      app->timer.user_timer_setup -= 15; // Substract 15s
    }
    /* Minimum Guard condition of the timer*/
-   if(app->timer.user_timer_setup < MIN_TIMER_OPERATION_IN_S)
+   if((app->timer.user_timer_setup < MIN_TIMER_OPERATION_IN_S) || ( app->timer.user_timer_setup > MAX_TIMER_OPERATION_IN_S)) // max uint_32T rolover in negative condition
       app->timer.user_timer_setup = MIN_TIMER_OPERATION_IN_S;
 }
 
@@ -297,7 +297,7 @@ void cb_ui_update(struct application_info* app){
   lcd.setCursor(0,0);
   if(temp_timer_select <= 60){    // Update in seconds
     lcd.print(temp_timer_select); 
-    lcd.setCursor(2,0);                     // As the above value <60 to unit will be after 2 digit space
+    lcd.setCursor(util_calculate_digit(temp_timer_select),0);                     // As the above value <60 to unit will be after 2 digit space
     lcd.print("s");              
   } else {                                  // update in minutes
     uint32_t temp_timer_val = (temp_timer_select/60);
