@@ -9,12 +9,11 @@ void cb_variable_reset(struct application_info* app){
   app->timer.user_timer_setup       = MIN_TIMER_OPERATION_IN_S;               // Reset value of the timer operation
   app->env_condition = CONDITION_DOOR_CLOSED;
   app->ui.notification_flag = NOTIFY_NULL;  // At beginig no update
-  // Timer operation related variable
-  lcd_time_counter      = 0; // Starting counter zero
-  time_tracker          = 0;
-  mark_time             = 0;
 
-  
+  // soft start related variables
+  soft_start_counter = 0;
+  soft_start_activation_flag = 0;
+  soft_start_ui_indication = false;
 }
 
 /**********************************************************
@@ -24,9 +23,6 @@ void cb_variable_reset(struct application_info* app){
 
 void cb_io_driver_int(struct application_info* app){
    // input IO pins initialization
-   for(int i = 0; i<MAX_IO_SCAN_PINS; i++){
-    
-   }
         scan_pin[INDEX_SCAN_PIN_START].pin            = PIN_START;
         scan_pin[INDEX_SCAN_PIN_START].pressed_state  = LOW;
         scan_pin[INDEX_SCAN_PIN_START].debounce_time  = 30; // Debounce time in 30mS
@@ -67,17 +63,18 @@ void cb_io_driver_int(struct application_info* app){
         scan_pin[INDEX_SCAN_PIN_TIMER_UP].debounce_time   = 30; // Debounce time in 30mS
         scan_pin[INDEX_SCAN_PIN_TIMER_UP].previous_state  = (!scan_pin[INDEX_SCAN_PIN_TIMER_UP].pressed_state);
         pinMode(scan_pin[INDEX_SCAN_PIN_TIMER_UP].pin , INPUT_PULLUP);
-        
-        
 
+        // Interrupt pin configuration
+        scan_pin[INDEX_SCAN_PIN_ZERO_CROSS].pin             = PIN_ZERO_CROSS;
+        pinMode(scan_pin[INDEX_SCAN_PIN_ZERO_CROSS].pin , INPUT_PULLUP);
+        attachInterrupt(digitalPinToInterrupt(2), zcd_zerocrossing , RISING); // rising mode to capture zero crossing
+
+        
+        
         /* OutPut pin Inits*/
         output_pin[INDEX_OUT_PIN_MICROWAVE].pin = PIN_MICROWAVE;
         pinMode(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , OUTPUT);
-        digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , HIGH);
-
-        output_pin[INDEX_OUT_PIN_GRILL].pin = PIN_GRILL;
-        pinMode(output_pin[INDEX_OUT_PIN_GRILL].pin , OUTPUT);
-        digitalWrite(output_pin[INDEX_OUT_PIN_GRILL].pin , HIGH);
+        digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , LOW);
 
         output_pin[INDEX_OUT_PIN_LIGHT].pin = PIN_LIGHT;
         pinMode(output_pin[INDEX_OUT_PIN_LIGHT].pin , OUTPUT);
@@ -90,7 +87,12 @@ void cb_io_driver_int(struct application_info* app){
         output_pin[INDEX_OUT_PIN_FAN].pin = PIN_FAN;
         pinMode(output_pin[INDEX_OUT_PIN_FAN].pin , OUTPUT);
         digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , LOW);
-
+        
+        /*        
+        output_pin[INDEX_OUT_PIN_GRILL].pin = PIN_GRILL;
+        pinMode(output_pin[INDEX_OUT_PIN_GRILL].pin , OUTPUT);
+        digitalWrite(output_pin[INDEX_OUT_PIN_GRILL].pin , HIGH);
+        */
         
 }
 
@@ -100,6 +102,12 @@ void cb_io_driver_int(struct application_info* app){
 ***********************************************************/
 
 void cb_external_peripheral_init(struct application_info* app){
+  /* Timer counter 0 interrupt settings for Soft start application */
+  TCCR1A = 0;
+  TCCR1B = 0;
+  TCCR1B |= (1<<CS12) | (1<<CS10) | (1<<WGM12);
+  TIMSK1 |= (1<<OCIE1B); // timer compare vector B 
+  /* LCD drivers settings */
   lcd.init();                     // Initialize the LCD
   lcd.backlight();                // On the LCD Back Light
 }
@@ -254,10 +262,13 @@ void cb_door_status_action(struct application_info* app){
   if(scan_pin[INDEX_SCAN_PIN_DOOR_OPEN].present_state == HIGH){ // door opened and notify for door opened
     app->env_condition = CONDITION_DOOR_OPEN;
     app->ui.notification_flag = NOTIFY_DOOR_STATUS;
+    // output action
+    cb_output_signal_generation(OUT_SIG_DOOR_OPEN);
   }
    else { // for close condition notify nothing
     app->env_condition = CONDITION_DOOR_CLOSED;
     app->ui.notification_flag = NOTIFY_NULL;
+    cb_output_signal_generation(OUT_SIG_DOOR_CLOSED);
    }  
 }
 
@@ -337,7 +348,65 @@ void cb_ui_update(struct application_info* app){
       app->ui.notification_flag = NOTIFY_NULL;
     break;
   }
-  
+
+  /* Soft start indication */
+  if(soft_start_ui_indication == true){
+    lcd.setCursor(7,0);
+    lcd.print("*");
+  }
+}
+
+/**********************************************************
+ * state name:  cb_ui_update
+ * parent state call: state_back_op_call
+***********************************************************/
+void cb_output_signal_generation(uint8_t signal_name){
+  switch(signal_name){
+
+    case OUT_STARTUP_DEFAULT:
+      digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , LOW); // Micro wave off
+      digitalWrite(output_pin[INDEX_OUT_PIN_PLATFORM_MOTOR].pin , HIGH); // Platform motor off off
+      digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , LOW); // Blower fan LOW
+      digitalWrite(output_pin[INDEX_OUT_PIN_LIGHT].pin , HIGH); //  Light off
+    break;
+    
+    case OUT_SIG_DOOR_OPEN:
+      digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , LOW); // Micro wave off
+      digitalWrite(output_pin[INDEX_OUT_PIN_PLATFORM_MOTOR].pin , HIGH); // Platform motor off off
+      digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , LOW); // Blower fan LOW
+      digitalWrite(output_pin[INDEX_OUT_PIN_LIGHT].pin , LOW); //  Light ON
+    break;
+
+    case OUT_SIG_DOOR_CLOSED:
+      digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , LOW); // Micro wave off
+      digitalWrite(output_pin[INDEX_OUT_PIN_PLATFORM_MOTOR].pin , HIGH); // Platform motor off off
+      digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , LOW); // Blower fan LOW
+      digitalWrite(output_pin[INDEX_OUT_PIN_LIGHT].pin , HIGH); //  Light off
+    break;
+
+    case OUT_SIG_RUIING:
+      digitalWrite(output_pin[INDEX_OUT_PIN_PLATFORM_MOTOR].pin , LOW); // Platform motor ON
+      digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , HIGH); // Blower fan ON
+      digitalWrite(output_pin[INDEX_OUT_PIN_LIGHT].pin , LOW); //  Light ON   
+
+      // activate the soft start
+      soft_start_counter = 0;
+      soft_start_ui_indication = true;
+      soft_start_enable = true;
+      
+      
+    break;
+
+    case OUT_SIGNAL_STOPPED:
+      soft_start_counter = 0;
+      soft_start_enable = false; // disable softstart
+      soft_start_ui_indication = false; // soft start stopped
+      digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , LOW); // Micro wave off
+      digitalWrite(output_pin[INDEX_OUT_PIN_PLATFORM_MOTOR].pin , HIGH); // Platform motor off off
+      digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , LOW); // Blower fan LOW
+      digitalWrite(output_pin[INDEX_OUT_PIN_LIGHT].pin , HIGH); //  Light off
+    break;
+  }
 }
 
 /**********************************************************

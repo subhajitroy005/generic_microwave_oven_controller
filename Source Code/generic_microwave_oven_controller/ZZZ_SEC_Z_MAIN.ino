@@ -1,8 +1,12 @@
 void setup(){
   // Init state call
   state_init_call(&application);
-  
+  // signal generation on startup
+  cb_output_signal_generation(OUT_STARTUP_DEFAULT);
   cb_transition_exit(&application , STATE_SELF_TEST);
+  cb_transition_create_signal(&application, SIGNAL_SELF_TEST_FAIL);
+  // Global interrupt enale
+  sei();
 }
 
 void loop() {
@@ -159,10 +163,14 @@ void function_operation_start_action(){
   application.timer.running_timer_status = application.timer.user_timer_setup; // this will for visualize the timer for user
   application.timer.minute_display_scaling_factor_hold  = application.timer.running_timer_status;
 
-  
+  // output signal operation
+  cb_output_signal_generation(OUT_SIG_RUIING);
 }
 
 void function_operation_stop_action(){
+  // output signal operation
+  cb_output_signal_generation(OUT_SIGNAL_STOPPED);
+  
   // Transit to idle condition and destroy the signal for safety
   cb_transition_exit(&application , STATE_IDLE);
   cb_transition_destroy_signal(&application);

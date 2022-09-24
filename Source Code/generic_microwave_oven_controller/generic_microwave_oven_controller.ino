@@ -50,6 +50,13 @@ enum notification_update_code{
   NOTIFY_NULL
 };
 
+enum output_io_signal_list{
+  OUT_STARTUP_DEFAULT,
+  OUT_SIG_DOOR_OPEN,
+  OUT_SIG_DOOR_CLOSED,
+  OUT_SIG_RUIING,
+  OUT_SIGNAL_STOPPED
+};
 /* GLOBAL Objects and variables*/
 LiquidCrystal_I2C lcd(0x27,16,2);     // set the LCD address to 0x27 for a 16 chars and 2 line display
 
@@ -119,22 +126,24 @@ struct application_info
 //********************************************//
 /* State related variables */
 #define MAX_IO_SCAN_PINS          6             // maximum scan pins for user input
-#define MAX_OUT_PINS              5             // Maximum output pins 
+#define MAX_OUT_PINS              4             // Maximum output pins 
 
 // OUTPUT PINS digital IO number-----------
-#define PIN_MICROWAVE             8
-#define PIN_GRILL                 9
-#define PIN_LIGHT                 10
-#define PIN_PLATFORM_MOTOR        11
-#define PIN_FAN                   12
+#define PIN_MICROWAVE             10 //  PB2 -> Pin 16
+//#define PIN_GRILL                 9 
+#define PIN_LIGHT                 11 // PB3 -> Pin 17
+#define PIN_PLATFORM_MOTOR        12 // PB4 -> Pin 18 
+#define PIN_FAN                   8 // PB0 -> Pin 14
 
 //INPUT PINS digital IO number-----------
-#define PIN_START                 2
-#define PIN_STOP                  3
-#define PIN_TIMER_UP              4
-#define PIN_TIMER_DOWN            5
-#define PIN_MODE_SELECT           6
-#define PIN_DOOR_OPEN             7
+#define PIN_START                 9 // PB1 - > Pin 15
+#define PIN_STOP                  3 // PD3 -> Pin 5
+#define PIN_TIMER_UP              4 // PD4 -> Pin 6
+#define PIN_TIMER_DOWN            5 // PD5 -> Pin 11
+#define PIN_MODE_SELECT           6 // PD6 -> Pin 12
+#define PIN_DOOR_OPEN             7 // PD7 -> Pin 13
+#define PIN_ZERO_CROSS            2 // PD2 -> Pin 4 // interrupt // not in polling
+
 /* LOGIG States */
 #define DOOR_OPEN_STATE           1
 #define DOOR_CLOSED_STATE         0
@@ -145,17 +154,18 @@ enum  scan_pin_index_poll{                   // SCAN pin indexes for polling
   INDEX_SCAN_PIN_DOOR_OPEN,
   INDEX_SCAN_PIN_TIMER_DOWN,
   INDEX_SCPN_PIN_MODE_SELECT,
-  INDEX_SCAN_PIN_TIMER_UP  
+  INDEX_SCAN_PIN_TIMER_UP,
+  INDEX_SCAN_PIN_ZERO_CROSS  
 };
 enum out_pin_index{                         // Output pin indexes for driver purpose
   INDEX_OUT_PIN_MICROWAVE = 0,
-  INDEX_OUT_PIN_GRILL,
+  //INDEX_OUT_PIN_GRILL,
   INDEX_OUT_PIN_LIGHT,
   INDEX_OUT_PIN_PLATFORM_MOTOR,
   INDEX_OUT_PIN_FAN
 };
 
-struct _scan_pins
+volatile struct _scan_pins
         {
             uint8_t        pin;
             uint8_t        pin_state;            // Current state at polling
@@ -167,7 +177,7 @@ struct _scan_pins
             uint8_t        is_pressed;           // Flag for resiater a signa for button is pressed
         }scan_pin[MAX_IO_SCAN_PINS];
         
-struct _output_pins
+volatile struct _output_pins
         {
             uint8_t        pin;
             uint32_t       pin_state;
@@ -176,11 +186,7 @@ struct _output_pins
 //********************************************//
 //********************************************//
 
-
-
-
-unsigned long time_tracker;           // Tracking the time for operation
-unsigned long mark_time;              // Mark the time from where the operation should start
-unsigned long lcd_update_time;        // store the last time for LCD update
-unsigned long lcd_time_counter;
-unsigned char operation_flag;         // Start/Stop condition of the operation
+volatile uint8_t soft_start_enable = false;
+volatile int soft_start_counter = 0;
+volatile uint8_t soft_start_activation_flag = 0;
+volatile uint8_t soft_start_ui_indication = 0;

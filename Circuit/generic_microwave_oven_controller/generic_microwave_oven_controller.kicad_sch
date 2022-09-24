@@ -50,12 +50,6 @@
     (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/006073e8-0b0a-4c67-a4da-d1f43dfe78a9"
       (reference "#PWR02") (unit 1) (value "GND") (footprint "")
     )
-    (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/f9eda9fc-d89e-4a48-873b-c62ca7c94a39"
-      (reference "C1") (unit 1) (value "0.05u") (footprint "")
-    )
-    (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/89c6bc44-1672-44ac-8fb6-7c47f8868c01"
-      (reference "C2") (unit 1) (value "0.01u") (footprint "")
-    )
     (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/6b0fbe6d-3574-46d3-8622-b5abac71a48a"
       (reference "D1") (unit 1) (value "1N4007") (footprint "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal")
     )
@@ -80,8 +74,8 @@
     (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/8f7a61c8-498c-4d72-9c70-3d3e878f4675"
       (reference "Q1") (unit 1) (value "BT139-600") (footprint "Package_TO_SOT_THT:TO-220-3_Vertical")
     )
-    (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/a80c8cd1-83a7-43de-bcd3-25b68569de46"
-      (reference "R1") (unit 1) (value "1k_W25") (footprint "")
+    (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/c659fc80-e326-4424-9724-980c24c9671e"
+      (reference "R1") (unit 1) (value "360_1W") (footprint "")
     )
     (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/0727bf11-dac4-44a0-a2dd-ba3cf25464e9"
       (reference "R2") (unit 1) (value "150_W25") (footprint "")
@@ -90,16 +84,13 @@
       (reference "R3") (unit 1) (value "1k_W25") (footprint "")
     )
     (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/ed43e1a1-54fb-4165-96d8-1773e71f1de4"
-      (reference "R4") (unit 1) (value "330_W25") (footprint "")
+      (reference "R4") (unit 1) (value "220_W25") (footprint "")
     )
     (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/a56da2d9-03cf-4401-b2d2-d494730013e6"
       (reference "R5") (unit 1) (value "360_1W") (footprint "")
     )
-    (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/550dd850-9819-4e11-b3a7-39b723471fbc"
-      (reference "R6") (unit 1) (value "470_1W") (footprint "")
-    )
-    (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/c4239e75-db07-4949-83aa-b2b272508e26"
-      (reference "R7") (unit 1) (value "39_1W") (footprint "")
+    (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/25286b3f-d63d-4aa4-9838-0c91ef265420"
+      (reference "R6") (unit 1) (value "360_1W") (footprint "")
     )
     (path "/858a9b02-ba13-4dc1-a8b0-2ed494d90c98/ab9bbe87-e414-4192-9f2e-0e69ef207178"
       (reference "R8") (unit 1) (value "10k_W25") (footprint "")
