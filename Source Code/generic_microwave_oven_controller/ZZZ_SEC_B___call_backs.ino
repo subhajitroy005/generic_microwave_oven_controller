@@ -104,9 +104,8 @@ void cb_io_driver_int(struct application_info* app){
 void cb_external_peripheral_init(struct application_info* app){
   /* Timer counter 0 interrupt settings for Soft start application */
   TCCR1A = 0;
-  TCCR1B = 0;
-  TCCR1B |= (1<<CS12) | (1<<CS10) | (1<<WGM12);
-  TIMSK1 |= (1<<OCIE1B); // timer compare vector B 
+  TCCR1B = 0; // timer stopped
+  TIMSK1 = 0b00000100; // timer compare vector B 
   /* LCD drivers settings */
   lcd.init();                     // Initialize the LCD
   lcd.backlight();                // On the LCD Back Light
@@ -386,9 +385,11 @@ void cb_output_signal_generation(uint8_t signal_name){
 
     case OUT_SIG_RUIING:
       digitalWrite(output_pin[INDEX_OUT_PIN_PLATFORM_MOTOR].pin , LOW); // Platform motor ON
+      delay(100);
       digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , HIGH); // Blower fan ON
-      digitalWrite(output_pin[INDEX_OUT_PIN_LIGHT].pin , LOW); //  Light ON   
-
+      delay(100);
+      digitalWrite(output_pin[INDEX_OUT_PIN_LIGHT].pin , LOW); //  Light ON
+      delay(100);
       // activate the soft start
       soft_start_counter = 0;
       soft_start_ui_indication = true;
@@ -398,9 +399,11 @@ void cb_output_signal_generation(uint8_t signal_name){
     break;
 
     case OUT_SIGNAL_STOPPED:
-      soft_start_counter = 0;
+      TCCR1B = 0; // stop the timer
+      soft_start_activation_flag = false;
       soft_start_enable = false; // disable softstart
-      soft_start_ui_indication = false; // soft start stopped
+      soft_start_counter = 0;
+      soft_start_ui_indication = false; // soft start completed
       digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , LOW); // Micro wave off
       digitalWrite(output_pin[INDEX_OUT_PIN_PLATFORM_MOTOR].pin , HIGH); // Platform motor off off
       digitalWrite(output_pin[INDEX_OUT_PIN_FAN].pin , LOW); // Blower fan LOW
