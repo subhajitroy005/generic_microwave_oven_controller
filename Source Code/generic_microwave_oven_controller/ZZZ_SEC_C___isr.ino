@@ -5,6 +5,7 @@
 
 void zcd_zerocrossing(){
   if(soft_start_enable == true){
+    /*
     digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , LOW); // Signal OFF at zero crossing point .. sllightly enable at end part
     TCCR1B = 0; // stop the timer
     OCR1B = 250 - soft_start_counter; // 133 as of now hardcoded but calculated from firing angle ND RAMP OF 1 S OF 50 hz SIGNAL
@@ -22,6 +23,11 @@ void zcd_zerocrossing(){
       soft_start_ui_indication = false; // soft start completed
     }
    TCCR1B = 0b00000101; // start the timer with prescalar 1024 of 16 MHz
+  */
+   // soft starter disabled and connect the ssr after zero crossing
+  digitalWrite(output_pin[INDEX_OUT_PIN_MICROWAVE].pin , HIGH); // continious signal on line
+  soft_start_enable = false;
+  soft_start_ui_indication = false; // soft start completeds
   }
 }
 
@@ -29,7 +35,7 @@ void zcd_zerocrossing(){
  * state name:  cb_ui_update
  * parent state call: state_back_op_call
 ***********************************************************/
-
+/*
 ISR(TIMER1_COMPB_vect){
   if(soft_start_enable == true){
     if(soft_start_activation_flag == true){
@@ -38,3 +44,4 @@ ISR(TIMER1_COMPB_vect){
     }
   }
 }
+*/

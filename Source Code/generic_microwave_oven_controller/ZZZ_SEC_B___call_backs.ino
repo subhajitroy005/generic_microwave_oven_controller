@@ -103,9 +103,9 @@ void cb_io_driver_int(struct application_info* app){
 
 void cb_external_peripheral_init(struct application_info* app){
   /* Timer counter 0 interrupt settings for Soft start application */
-  TCCR1A = 0;
-  TCCR1B = 0; // timer stopped
-  TIMSK1 = 0b00000100; // timer compare vector B 
+  //TCCR1A = 0;
+  //TCCR1B = 0; // timer stopped
+  //TIMSK1 = 0b00000100; // timer compare vector B 
   /* LCD drivers settings */
   lcd.init();                     // Initialize the LCD
   lcd.backlight();                // On the LCD Back Light
